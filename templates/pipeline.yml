@@ -69,7 +69,7 @@ Resources:
     Type: AWS::S3::Bucket
     DeletionPolicy: Delete
     Properties:
-      BucketName: !Sub "${ApplicationName}-builds"
+      BucketName: !Sub "${ApplicationName}-builds-z"
       AccessControl: Private
       VersioningConfiguration:
         Status: Enabled

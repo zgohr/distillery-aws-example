@@ -16,7 +16,7 @@ defmodule ExampleWeb.Router do
   scope "/", ExampleWeb do
     pipe_through :browser
 
-    get "/", TodoController, :index
+    resources "/", AddressController
   end
 
   scope "/api", ExampleWeb do

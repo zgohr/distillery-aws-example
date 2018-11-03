@@ -13,6 +13,8 @@ defmodule ExampleWeb.Router do
     plug :put_secure_browser_headers
   end
 
+  get "/healthz", ExampleWeb.HealthController, :healthz
+
   scope "/", ExampleWeb do
     pipe_through :browser
 
@@ -29,5 +31,4 @@ defmodule ExampleWeb.Router do
     delete "/todos", TodoController, :delete_all
   end
 
-  get "/healthz", ExampleWeb.HealthController, :healthz
 end

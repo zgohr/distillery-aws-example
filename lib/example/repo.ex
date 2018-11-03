@@ -5,11 +5,11 @@ defmodule Example.Repo do
   Dynamically loads the repository url from the
   DATABASE_URL environment variable.
   """
-  def init(_, opts) do
-    opts =
-      opts
-      |> Keyword.put(:url, System.get_env("DATABASE_URL"))
-      |> Keyword.put(:hostname, System.get_env("DATABASE_HOST"))
-    {:ok, opts}
-  end
+  # def init(_, opts) do
+    # opts =
+      # opts
+      # |> Keyword.put(:url, System.get_env("DATABASE_URL"))
+      # |> Keyword.put(:hostname, System.get_env("DATABASE_HOST"))
+    # {:ok, opts}
+  # end
 end

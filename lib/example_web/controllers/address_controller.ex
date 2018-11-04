@@ -1,12 +1,13 @@
 defmodule ExampleWeb.AddressController do
   use ExampleWeb, :controller
+  use Rummage.Phoenix.Controller
 
   alias Example
   alias Example.Address
 
-  def index(conn, _params) do
-    addresses = Example.list_addresses()
-    render(conn, "index.html", addresses: addresses)
+  def index(conn, params) do
+    {addresses, rummage} = Example.list_addresses(params["rummage"])
+    render(conn, "index.html", addresses: addresses, rummage: rummage)
   end
 
   def new(conn, _params) do

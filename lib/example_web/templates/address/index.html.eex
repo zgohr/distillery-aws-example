@@ -1,4 +1,9 @@
-<h2>Listing Addresses</h2>
+<h2>Listing Addresses <%= link "New Address", to: address_path(@conn, :new), class: "button pull-right" %></h2>
+
+<%= search_form(@conn, @rummage, [fields: [name: %{label: "", search_type: "ilike"},
+                                           ],
+                                           button_class: "button"]) %>
+
 
 <table class="table">
   <thead>
@@ -29,4 +34,4 @@
   </tbody>
 </table>
 
-<span><%= link "New Address", to: address_path(@conn, :new) %></span>
+<%= pagination_link(@conn, @rummage) %>

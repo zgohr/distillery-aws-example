@@ -17,6 +17,7 @@ config :distillery_example, ExampleWeb.Endpoint,
       ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
       ~r{priv/gettext/.*(po)$},
       ~r{lib/example_web/views/.*(ex)$},
+      ~r{lib/example_web/controllers/.*(ex)$},
       ~r{lib/example_web/templates/.*(eex)$}
     ]
   ]

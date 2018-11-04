@@ -32,6 +32,21 @@ defmodule Example.Tasks.Migrate do
       Ecto.Migrator.run(Example.Repo, migrations_dir, :up, opts)
     end
 
+    IO.puts "==> Seeding"
+    # Dirty dirty dirty
+    Faker.start()
+    Example.Repo.delete_all(Example.Address)
+    for _ <- 1..10000 do
+        Example.Repo.insert!(
+            %Example.Address{
+                name: Faker.Name.name(),
+                address: Faker.Address.street_address(),
+                city: Faker.Address.city(),
+                state: Faker.Address.state(),
+            }
+        )
+    end
+
     # Shut down
     :init.stop()
   end

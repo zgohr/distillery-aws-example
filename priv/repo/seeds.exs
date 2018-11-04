@@ -9,3 +9,21 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+
+alias Example.Repo
+alias Example.Address
+
+Faker.start()
+
+Repo.delete_all(Address)
+
+for _ <- 1..100 do
+    Repo.insert!(
+        %Address{
+            name: Faker.Name.name(),
+            address: Faker.Address.street_address(),
+            city: Faker.Address.city(),
+            state: Faker.Address.state(),
+        }
+    )
+end)

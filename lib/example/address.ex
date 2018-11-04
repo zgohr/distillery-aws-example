@@ -2,7 +2,6 @@ defmodule Example.Address do
   use Ecto.Schema
   import Ecto.Changeset
 
-
   schema "addresses" do
     field :address, :string
     field :city, :string

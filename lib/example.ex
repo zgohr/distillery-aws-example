@@ -17,8 +17,11 @@ defmodule Example do
       [%Address{}, ...]
 
   """
-  def list_addresses do
-    Repo.all(Address)
+  def list_addresses(rummage_params) do
+    {query, rummage} = Address
+      |> Rummage.Ecto.rummage(rummage_params)
+
+    {Repo.all(query), rummage}
   end
 
   @doc """

@@ -1,14 +1,16 @@
 defmodule ExampleWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :distillery_example
 
-  #socket "/socket", ExampleWeb.UserSocket
+  # socket "/socket", ExampleWeb.UserSocket
 
   # Serve at "/" the static files from "priv/static" directory.
   #
   # You should set gzip to true if you are running phoenix.digest
   # when deploying your static files in production.
   plug Plug.Static,
-    at: "/", from: :distillery_example, gzip: false,
+    at: "/",
+    from: :distillery_example,
+    gzip: false,
     only: ~w(css fonts images js favicon.ico robots.txt)
 
   # Code reloading can be explicitly enabled under the
@@ -22,7 +24,7 @@ defmodule ExampleWeb.Endpoint do
   plug Plug.Parsers,
     parsers: [:urlencoded, :multipart, :json],
     pass: ["*/*"],
-    json_decoder: Poison
+    json_decoder: Jason
 
   plug Plug.MethodOverride
   plug Plug.Head

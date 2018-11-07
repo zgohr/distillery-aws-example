@@ -20,7 +20,7 @@ defmodule ExampleWeb.AddressController do
       {:ok, address} ->
         conn
         |> put_flash(:info, "Address created successfully.")
-        |> redirect(to: address_path(conn, :show, address))
+        |> redirect(to: Routes.address_path(conn, :show, address))
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
@@ -44,7 +44,7 @@ defmodule ExampleWeb.AddressController do
       {:ok, address} ->
         conn
         |> put_flash(:info, "Address updated successfully.")
-        |> redirect(to: address_path(conn, :show, address))
+        |> redirect(to: Routes.address_path(conn, :show, address))
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", address: address, changeset: changeset)
     end
@@ -56,6 +56,6 @@ defmodule ExampleWeb.AddressController do
 
     conn
     |> put_flash(:info, "Address deleted successfully.")
-    |> redirect(to: address_path(conn, :index))
+    |> redirect(to: Routes.address_path(conn, :index))
   end
 end

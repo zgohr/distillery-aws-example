@@ -1,5 +1,5 @@
 <h2>New Address</h2>
 
-<%= render "form.html", Map.put(assigns, :action, address_path(@conn, :create)) %>
+<%= render "form.html", Map.put(assigns, :action, Routes.address_path(@conn, :create)) %>
 
-<span><%= link "Back", to: address_path(@conn, :index) %></span>
+<span><%= link "Back", to: Routes.address_path(@conn, :index) %></span>

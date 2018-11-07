@@ -33,16 +33,18 @@ defmodule Example.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.3.3", override: true},
+      {:phoenix, "~> 1.4.0", override: true},
       {:phoenix_pubsub, "~> 1.0"},
-      {:phoenix_ecto, "~> 3.2"},
+      {:phoenix_ecto, "~> 4.0"},
+      {:ecto, "~> 3.0", override: true},
+      {:ecto_sql, "~> 3.0"},
       {:phoenix_html, "~> 2.10"},
       {:postgrex, ">= 0.0.0"},
       {:jason, "~> 1.0"},
+      {:poison, "~> 1.4", override: true},
       {:gettext, "~> 0.11"},
-      {:cowboy, "~> 1.0"},
       {:distillery, ">= 2.0.0"},
-      {:plug_cowboy, "~> 1.0"},
+      {:plug_cowboy, "~> 2.0"},
       {:faker, "~> 0.11"},
       {:rummage_phoenix, "~> 1.2.0"}
     ]

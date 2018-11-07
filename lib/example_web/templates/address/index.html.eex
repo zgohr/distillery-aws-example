@@ -1,8 +1,8 @@
-<h2>Listing Addresses <%= link "New Address", to: address_path(@conn, :new), class: "button pull-right" %></h2>
+<h2>Listing Addresses <%= link "New Address", to: Routes.address_path(@conn, :new), class: "btn btn-primary pull-right" %></h2>
 
 <%= search_form(@conn, @rummage, [fields: [name: %{label: "", search_type: "ilike"},
                                            ],
-                                           button_class: "button"]) %>
+                                           button_class: "btn btn-default pull-right"]) %>
 
 
 <table class="table">
@@ -25,9 +25,9 @@
       <td><%= address.state %></td>
 
       <td class="text-right">
-        <span><%= link "Show", to: address_path(@conn, :show, address), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Edit", to: address_path(@conn, :edit, address), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Delete", to: address_path(@conn, :delete, address), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+        <span><%= link "Show", to: Routes.address_path(@conn, :show, address), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Edit", to: Routes.address_path(@conn, :edit, address), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Delete", to: Routes.address_path(@conn, :delete, address), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
       </td>
     </tr>
 <% end %>

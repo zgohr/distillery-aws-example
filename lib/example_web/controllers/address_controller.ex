@@ -5,6 +5,10 @@ defmodule ExampleWeb.AddressController do
   alias Example
   alias Example.Address
 
+  def ql(conn, _params) do
+    render(conn, "ql.html")
+  end
+
   def index(conn, params) do
     {addresses, rummage} = Example.list_addresses(params["rummage"])
     render(conn, "index.html", addresses: addresses, rummage: rummage)
@@ -21,6 +25,7 @@ defmodule ExampleWeb.AddressController do
         conn
         |> put_flash(:info, "Address created successfully.")
         |> redirect(to: Routes.address_path(conn, :show, address))
+
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
@@ -45,6 +50,7 @@ defmodule ExampleWeb.AddressController do
         conn
         |> put_flash(:info, "Address updated successfully.")
         |> redirect(to: Routes.address_path(conn, :show, address))
+
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", address: address, changeset: changeset)
     end

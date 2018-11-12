@@ -2,10 +2,6 @@
 
 @import "./phoenix.css";
 
-.pull-right {
-    float: right;
-}
-
 /* Pagination */
 .sr-only {
     position: absolute !important;

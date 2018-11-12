@@ -6,9 +6,9 @@ defmodule Example.Mixfile do
       app: :distillery_example,
       version: "0.1.0",
       elixir: "~> 1.6",
-      elixirc_paths: elixirc_paths(Mix.env),
-      compilers: [:phoenix, :gettext] ++ Mix.compilers,
-      start_permanent: Mix.env == :prod,
+      elixirc_paths: elixirc_paths(Mix.env()),
+      compilers: [:phoenix, :gettext] ++ Mix.compilers(),
+      start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps()
     ]
@@ -26,7 +26,7 @@ defmodule Example.Mixfile do
 
   # Specifies which paths to compile per environment.
   defp elixirc_paths(:test), do: ["lib", "test/support"]
-  defp elixirc_paths(_),     do: ["lib"]
+  defp elixirc_paths(_), do: ["lib"]
 
   # Specifies your project dependencies.
   #
@@ -46,7 +46,10 @@ defmodule Example.Mixfile do
       {:distillery, ">= 2.0.0"},
       {:plug_cowboy, "~> 2.0"},
       {:faker, "~> 0.11"},
-      {:rummage_phoenix, "~> 1.2.0"}
+      {:rummage_phoenix, "~> 1.2.0"},
+      {:absinthe_ecto, "~> 0.1.0"},
+      {:absinthe_plug, "~> 1.4.0"},
+      {:phoenix_live_reload, "~> 1.2.0"}
     ]
   end
 
@@ -71,6 +74,7 @@ defmodule Example.Mixfile do
     static_dir = Path.join(Application.app_dir(:distillery_example, "priv"), "static")
     File.mkdir_p!(Path.join(static_dir, "js"))
     File.mkdir_p!(Path.join(static_dir, "css"))
+
     for item <- ["js", "css", "favicon.ico", "robots.txt"] do
       File.cp_r!(Path.join(assets_dir, item), Path.join(static_dir, item))
     end
@@ -78,6 +82,7 @@ defmodule Example.Mixfile do
 
   defp clean_assets(_args) do
     static_dir = Path.join(Application.app_dir(:distillery_example, "priv"), "static")
+
     for item <- ["js", "css", "favicon.ico", "robots.txt"] do
       File.rm_rf!(Path.join(static_dir, item))
     end

@@ -1,0 +1,110 @@
+
+<h2>Listing Addresses with GraphQL</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>State</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<simple-paginate></simple-paginate>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
+
+<script>
+    require.config({
+        paths: { graphql: 'https://cdn.jsdelivr.net/npm/graphql.js@0.5.2/graphql.min' }
+    });
+    require(['graphql'], init);
+
+    const PER_PAGE = 10;
+    let totalCount, lastPage, query;
+    let currentPage = 1;
+    let tableBody = document.querySelector("table tbody");
+
+    let paginator = document.querySelector("simple-paginate");
+    paginator.addEventListener('next', nextPage);
+    paginator.addEventListener('previous', prevPage);
+
+    function init(graphql) {
+        let g = graphql('/api/graphiql');
+
+        g.query(`{addressesCount}`)().then(resp => {
+            totalCount = resp.addressesCount;
+            lastPage = Math.ceil(totalCount / PER_PAGE);
+        })
+
+        query = g.query(`
+        (@autodeclare) {
+            addresses (offset: $offset, limit: $limit) {
+                id,
+                name,
+                address,
+                city,
+                state
+            }
+        }`);
+        doQuery();
+    };
+
+    async function doQuery() {
+        query({
+            offset: (currentPage-1)*PER_PAGE,
+            limit: PER_PAGE
+        }).then(resp => {
+            drawTableBody(resp.addresses).then(redrawPagination);
+        }).catch(err => {
+            console.log(err);
+        });
+    }
+
+    async function redrawPagination() {
+        paginator.setAttribute('current-page', currentPage)
+        paginator.setAttribute('total-count', totalCount)
+        paginator.setAttribute('per-page', PER_PAGE)
+    }
+
+    async function drawTableBody(addresses) {
+        // Clear
+        while (tableBody.firstChild) {
+            tableBody.removeChild(tableBody.firstChild);
+        }
+
+        addresses.forEach(address => {
+            let row = document.createElement("tr");
+            let name = document.createElement("td");
+            let addr = document.createElement("td");
+            let city = document.createElement("td");
+            let state = document.createElement("td");
+            row.appendChild(name);
+            row.appendChild(addr);
+            row.appendChild(city);
+            row.appendChild(state);
+            name.innerText = address.name;
+            addr.innerText = address.address;
+            city.innerText = address.city;
+            state.innerText = address.state;
+            tableBody.appendChild(row);
+        })
+    }
+
+    async function nextPage(_e) {
+        if (currentPage === lastPage) return;
+        currentPage += 1;
+        return doQuery();
+    }
+
+    async function prevPage(_e) {
+        if (currentPage == 1) return;
+        currentPage -= 1;
+        return doQuery();
+    }
+</script>
+
+<script src="<%= Routes.static_path(@conn, "/js/simple-paginate.js") %>"></script>

@@ -18,7 +18,8 @@ defmodule Example do
 
   """
   def list_addresses(rummage_params) do
-    {query, rummage} = Address
+    {query, rummage} =
+      Address
       |> Rummage.Ecto.rummage(rummage_params)
 
     {Repo.all(query), rummage}

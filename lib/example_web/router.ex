@@ -18,17 +18,15 @@ defmodule ExampleWeb.Router do
   scope "/", ExampleWeb do
     pipe_through :browser
 
+    get "/ql", AddressController, :ql
     resources "/", AddressController
   end
 
-  scope "/api", ExampleWeb do
+  scope "/api" do
     pipe_through :api
 
-    get "/todos", TodoController, :list
-    post "/todos", TodoController, :create
-    put "/todos/:id", TodoController, :update
-    delete "/todos/:id", TodoController, :delete
-    delete "/todos", TodoController, :delete_all
-  end
+    forward "/graphiql", Absinthe.Plug.GraphiQL, schema: ExampleWeb.Schema
 
+    forward "/", Absinthe.Plug, schema: ExampleWeb.Schema
+  end
 end
